@@ -1,7 +1,7 @@
-# R scripts to accompany cost-effectiveness analysis for optimal idnicator selection
+### R scripts to accompany cost-effectiveness analysis for optimal idnicator selection
 
-Manuscript title: *How to choose a cost-effective indicator to trigger conservation decisions?*<br>
-In review: Methods in Ecology and Evolution
+#####Manuscript title: *How to choose a cost-effective indicator to trigger conservation decisions?*<br>
+#####In review: Methods in Ecology and Evolution
 
 Authors: Payal Bal1,3,9 *, Jonathan Rhodes1,9, Josie Carwardine4, Sarah Legge2,5, Ayesha Tulloch1,6,9, Edward Game7, Tara G. Martin8, Hugh P. Possingham2,7,9, Eve McDonald-Madden1,9
 
@@ -16,7 +16,7 @@ Authors: Payal Bal1,3,9 *, Jonathan Rhodes1,9, Josie Carwardine4, Sarah Legge2,5
 9Centre for Biodiversity and Conservation Science, The University of Queensland, Brisbane, QLD 4072, Australia<br>
 
 
-* Corresponding author 
+* Corresponding author<br>
 School of BioSciences, University of Melbourne, Parkville, Victoria 3052, Australia
 bal.payal@gmail.com
 
