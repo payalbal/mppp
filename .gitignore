@@ -1,6 +1,6 @@
 # Specific files/folders #
 ##########################
-data/
+data/raw/
 figs/
 docs/
 output/
