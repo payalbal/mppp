@@ -50,11 +50,11 @@ for(m in 1:nrow(detect_threat)){
   }
 }
 # text(x=bplot,y=ce$effectiveness, labels=rowSums(detect_threat), pos = 3)
-rect(xleft = -2.5, ybottom = 13.2, xright = 15, ytop = 16.8, col = "lightgrey")
+rect(xleft = -2.5, ybottom = 13.2, xright = 15, ytop = 16.8, col = "lightgrey", border = FALSE)
 rect(xleft = -2.5, ybottom = 14.35, xright = 15, ytop = 15.5, col = "white", border = FALSE)
-rect(xleft = -2.5, ybottom = 13.2, xright = 15, ytop = 16.8, border = TRUE)
+# rect(xleft = -2.5, ybottom = 13.2, xright = 15, ytop = 16.8, border = TRUE)
 text(x=-1.2,y=c(15.4,14.3,13.2), labels=threats, pos = 3)
-mtext("Threats detected", side=3, line=5.3, las = 1, font = 2, adj = 0)
+# mtext("Threats detected", side=3, line=5.3, las = 1, font = 2, adj = 0)
 for (i in 1:length(indicators)) {
   if (detect_threat[i,1]==1) {
     points(bplot[i], 16, pch=4, cex=1)} else {NA}
@@ -74,9 +74,12 @@ dev.off()
 
 
 ## ------------------------------------------------------
-## Expected benefit and expected cost plot
+## Expected/Relative cost plots (Fig 4)
 ## ------------------------------------------------------
-pdf(file = "./output/costbenefit_plot.pdf", width=10, height=8)
+bplot <- barplot(ce$effectiveness, ylab="Cost-effectiveness", space=0.05, col = "grey", 
+                 ylim = c(0,12), xlim = c(0, length(ce$effectiveness) + 1), xpd=FALSE)
+
+pdf(file = "./output/expcost_plot.pdf", width=10, height=8)
 par(las=1, mar=c(15,8,8,6), oma=c(0,0,0,0))
 plot(x=bplot, y=ce$exp_benefit, type = "b", ylab="Expected benefit",
      ylim = c(0,ceiling(max(ce$exp_benefit)/50)*50), 
@@ -125,12 +128,13 @@ dev.off()
   # grid.symbols(spiral, x = xx, y = yy, size = 0.05)
 
 
-
-
 ## ------------------------------------------------------
-## Expected benefit and detectionn probability plots
+## Detection probability plots (Fig 4)
 ## ------------------------------------------------------
-pdf(file = "./output/benefitdetectprob_plot.pdf", width=10, height=8)
+bplot <- barplot(ce$effectiveness, ylab="Cost-effectiveness", space=0.05, col = "grey", 
+                 ylim = c(0,12), xlim = c(0, length(ce$effectiveness) + 1), xpd=FALSE)
+
+pdf(file = "./output/detectprob_plot.pdf", width=10, height=8)
 par(las=1, mar=c(15,8,8,8), oma=c(0,0,0,0))
 plot(x=bplot, y=ce$exp_benefit, type = "b", ylab="Expected benefit",
      ylim = c(0,ceiling(max(ce$exp_benefit)/50)*50), 
@@ -156,6 +160,83 @@ shape::Arrows(2.5,-0.85,12.5,-0.85, lwd = 1.5, arr.type="triangle", arr.width=0.
 mtext("Indicators arranged in decreasing order of cost-effectiveness", side=1, line = 13.5)
 dev.off()
 
+
+## ------------------------------------------------------
+## FLIPPED: Expected/Relative cost plots (Fig 4b)
+## ------------------------------------------------------
+bplot <- barplot(ce$exp_cost)
+## Plot line for expected cost
+pdf(file = "./output/expcost_plot_flipped.pdf", width=10, height=8)
+par(las=1, mar=c(15,6,8,8), oma=c(0,0,0,0))
+plot(x=bplot, y=ce$exp_cost, type = "b", col = "purple",
+     axes = TRUE, ylab = "Cost of monitoring",  
+     ylim = c(0, ceiling(max(ce$exp_cost)/50)*50), 
+     xlim = c(0, length(ce$exp_cost) + 2), 
+     xpd=FALSE, bty = "n", xaxt="n", xlab = NA)
+axis(side=1, at=bplot, labels = FALSE, pos = -20)
+text(x=bplot, y=-30, labels=ce$indicator, adj = 1, xpd = TRUE, cex=1, srt=60)
+## For purple LHS y_axis: set axes = FALSE above and...
+# axis(side = 2, col = "purple", col.axis = "purple")
+# mtext(side = 2, line = 4, "Cost of monitoring", col = "purple", las = 3)
+
+## Add line for relative cost
+lines(x=bplot, y=ce$ind_cost, type = "b", lwd = 1, lty = 1, col = "darkgreen")
+
+## And second y-axis & line for expected benefit
+par(new=TRUE, xpd = TRUE)
+plot(x=bplot, y=ce$exp_benefit, type = "b", lty = 2,
+     axes = FALSE,  xlab = "", ylab = "", xlim = c(0, length(ce$effectiveness) + 2), 
+     ylim = c(0,ceiling(max(ce$exp_benefit))))
+axis(4, seq(0,ceiling(max(ce$exp_benefit)), by = 10), las=1, pos = 17)
+mtext("Expected benefit", side = 4, line = 3.5, las = 3)
+# shape::Arrows(1.5,-39,14.5,-39, lwd = 1.5, arr.type="triangle", arr.width = 0.2)
+# mtext("Indicators arranged in decreasing order of cost-effectiveness", side=1, line = 13.5)
+
+## Legend
+legend(12,52,
+       c("Expected cost", "Relative cost", "Expected benefit"), 
+       lty=c(1,1,2), col = c("purple", "darkgreen", "black"), lwd=2,  box.col=NA, cex=1)
+dev.off()
+
+
+## ------------------------------------------------------
+## FLIPPED: Detection probability plots (Fig 4a)
+## ------------------------------------------------------
+bplot <- barplot(ce$detect_p_firegrazing)
+
+pdf(file = "./output/detectprob_plot_flipped.pdf", width=10, height=8)
+par(las=1, mar=c(15,6,8,8), oma=c(0,0,0,0))
+
+## Plot detectprob line 1
+plot(x=bplot, y=ce$detect_p_firegrazing, type = "b", col="purple", lty = 1,
+     axes = TRUE, ylab = "Probability of detecting trigger point for threat", 
+     ylim = c(0, 1), 
+     xlim = c(0, length(ce$effectiveness) + 2), 
+     xpd=FALSE, bty = "n", xaxt="n", xlab = NA)
+axis(side=1, at=bplot, labels = FALSE, pos = - 0.1)
+text(x=bplot, y= - 0.15, labels=ce$indicator, adj = 1, xpd = TRUE, cex=1, srt=60)
+
+## Add lines for detectprob 2 & 3
+lines(x=bplot, y=ce$detect_p_catpredation, col="darkgoldenrod4", 
+      type = "b", lty = 1)
+lines(x=bplot, y=ce$detect_p_weeds, col="darkgreen", type = "b", 
+      lty = 1)
+
+## And second y-axis & line for expected benefit
+par(new=TRUE, xpd = TRUE)
+plot(x=bplot, y=ce$exp_benefit, type = "b", lty = 2,
+     axes = FALSE,  xlab = "", ylab = "", xlim = c(0, length(ce$effectiveness) + 2), 
+     ylim = c(0,ceiling(max(ce$exp_benefit))))
+axis(4, seq(0,ceiling(max(ce$exp_benefit)), by = 10), las=1, pos = 17)
+mtext("Expected benefit", side = 4, line = 3.5, las = 3)
+# shape::Arrows(1.5,-39,14.5,-39, lwd = 1.5, arr.type="triangle", arr.width = 0.2)
+# mtext("Indicators arranged in decreasing order of cost-effectiveness", side=1, line = 13.5)
+
+## Legend
+legend(12,55,
+       c("Pr(fire & grazing)", "Pr(cat predation)", "Pr(weeds)","Expected benefit"), 
+       lty=c(1,1,1,2), col = c("purple", "darkgoldenrod4", "darkgreen", "black"), lwd=2,  box.col=NA, cex=1)
+dev.off()
 
 
 ## ------------------------------------------------------
@@ -199,7 +280,7 @@ dev.off()
 
 
 ## ------------------------------------------------------
-## Prioritisation plot
+## Prioritisation plot (Fig 5)
 ## ------------------------------------------------------
 ## Line for cumulative benefit
 pdf(file = "./output/ppp_plot.pdf", width=11, height=7)
@@ -240,7 +321,7 @@ off.y[13]<- benefit[13]+10
 off.y[14]<- benefit[14]+10
 
 par(mfrow=c(1,1), las=0, mar=c(5, 5, 2, 15), xpd = FALSE, cex=1)
-plot(cost,benefit, lwd=2, type="l", xlab="Cumulative expected cost",
+plot(cost,benefit, lwd=1, type="l", xlab="Cumulative expected cost",
      ylab="Cumulative expected benefit", xlim=c(-30,max(cost)+30), ylim=c(-10,400))
 points(cost,benefit,pch=20)
 segments(cost[dimidx], -20, cost[dimidx],
@@ -290,9 +371,9 @@ off.y[12]<- benefit[12]-10
 off.y[13]<- benefit[13]-10
 off.y[14]<- benefit[14]-10
 
-lines(cost, benefit, lwd=2, lty = 2, col="blue")
-points(cost, benefit, pch=20, col="blue")
-text(off.x, off.y, temp$ind_ranks, col="blue")
+lines(cost, benefit, lwd=1, lty = 2, col="purple")
+points(cost, benefit, pch=20, col="purple")
+text(off.x, off.y, temp$ind_ranks, col="purple")
 
 ## Add line for average probability of dectection across threats: sum of pij over j/length j
 temp <- ce
@@ -331,15 +412,15 @@ off.y[12]<- benefit[12]-10
 off.y[13]<- benefit[13]-10
 off.y[14]<- benefit[14]
 
-lines(cost, benefit, lwd=2, lty = 2, type="l", col="red")
-points(cost, benefit, pch=20,col="red")
-text(off.x, off.y, temp$ind_ranks, col="red")
+lines(cost, benefit, lwd=1, lty = 2, type="l", col="darkgreen")
+points(cost, benefit, pch=20,col="darkgreen")
+text(off.x, off.y, temp$ind_ranks, col="darkgreen")
 
 ## Legend
 legend(620,100,
-       c("Cumulative benefit", "Relative cost",
-         "Probability of detecting change"), y.intersp=2.2,
-       lty=1, lwd=2, col=c("black", "blue", "red"), box.col=NA, cex=1)
+       c("Cost effectiveness", "Relative cost",
+         "Probability of detecting triggers"), y.intersp=2.2,
+       lty=c(1,2,2), lwd=2, col=c("black", "purple", "darkgreen"), box.col=NA, cex=1)
 text(770, 105, "Indicator prioritisation based on:", font=2)
 dev.off()
 

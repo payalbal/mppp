@@ -441,9 +441,12 @@ abline(v=30, lty=2, col="grey50")
 op <- par(usr=c(0,1,0,1), # Reset the coordinates
           xpd=NA)         # Allow plotting outside the plot region
 legend(1.05,2.4, # Find suitable coordinates by trial and error
-       c("pij", "qij", "Fi", "Ri", "dj", "Gj", "Mj", "Aj"), lty=1, lwd=3, col=c(1:8), box.col=NA, cex=1)
+       c("pij", "qij", "Fi", "Ri", "dj", "Gj", "Mj", "Aj"), 
+       lty=1, lwd=1, col=c(1:8), box.col=NA, cex=1)
 
 dev.off()
 
-
+## legend only
+legend("center", c(expression("p"[ij], "q"[ij], "F"[i], "R"[i], "d"[j], "G"[j], "M"[j], "A"[j])), 
+       lty=1, lwd=3, col=c(1:8), box.col=NA, cex=2)
 
