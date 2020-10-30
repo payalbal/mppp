@@ -22,8 +22,9 @@ Authors: Payal Bal<sup>1,3,9 *</sup>, Jonathan Rhodes<sup>1,9</sup>, Josie Carwa
 
 8. Dept. Forest and Conservation Sciences, Faculty of Forestry, University of British Columbia 3041-2424 Main Mall, Vancouver, BC, V6T 1Z4, Canada<br>
 
-9. Centre for Biodiversity and Conservation Science, The University of Queensland, Brisbane, QLD 4072, Australia<br>,br.
+9. Centre for Biodiversity and Conservation Science, The University of Queensland, Brisbane, QLD 4072, Australia<br><br><br>
 
 
-* Corresponding author: Payal Bal bal.payal@gmail.com <br>
 -----------------------------------------------------------
+* Corresponding author: Payal Bal bal.payal@gmail.com <br>
+
