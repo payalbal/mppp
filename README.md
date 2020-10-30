@@ -1,6 +1,6 @@
 ## Data and R scripts to accompany manuscript: 
-###***How to choose a cost-effective indicator to trigger conservation decisions?***<br><br>
-
+### ***How to choose a cost-effective indicator to trigger conservation decisions?***<br><br>
+ 
 Authors: Payal Bal<sup>1,3,9 *</sup>, Jonathan Rhodes<sup>1,9</sup>, Josie Carwardine<sup>4</sup>, Sarah Legge<sup>2,5</sup>, Ayesha Tulloch<sup>1,6,9</sup>, Edward Game<sup>7</sup>, Tara G. Martin<sup>8</sup>, Hugh P. Possingham<sup>2,7,9</sup>, Eve McDonald-Madden<sup>1,9</sup>
 
 
