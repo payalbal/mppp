@@ -447,6 +447,7 @@ legend(1.05,2.4, # Find suitable coordinates by trial and error
 dev.off()
 
 ## legend only
+plot.new()
 legend("center", c(expression("p"[ij], "q"[ij], "F"[i], "R"[i], "d"[j], "G"[j], "M"[j], "A"[j])), 
-       lty=1, lwd=3, col=c(1:8), box.col=NA, cex=2)
+       lty=1, lwd=2, col=c(1:8), box.col=NA, cex=2, y.intersp=1.3)
 

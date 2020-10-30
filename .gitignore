@@ -1,13 +1,14 @@
 # Specific files/folders #
 ##########################
 data/raw/
-figs/
 docs/
+figs/
 output/
+R/method_figure.R
 R/oldcode/
 R/pre_Mj_qij/
-R/*.docx
-R/*.nb
+R/CEcalculation.nb
+
 
 # R files #
 ###########
@@ -17,7 +18,7 @@ R/*.nb
 .RData
 .Ruserdata
 .RDataTmp
-
+.Rmd
 
 # Generic file extensions from: https://gist.github.com/octocat/9257657 #
 # Compiled source #
